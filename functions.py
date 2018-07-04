@@ -5,7 +5,6 @@ import random
 c = 0
 d = 0
 
-
 def linFunction(x, k, b):
     linFunction = np.empty(len(x))
 
@@ -40,3 +39,17 @@ def randFunction():
         randFunction[i] = random.random();
 
     return randFunction
+
+
+def computeGraphs(x, k, b, s):
+    if s == 1:
+        return (linFunction(x, k, b))
+
+    if s == 2:
+        return (sinFunction(x))
+
+    if s == 3:
+        return (logFunction(x))
+
+    if s == 4:
+        return (randFunction())
