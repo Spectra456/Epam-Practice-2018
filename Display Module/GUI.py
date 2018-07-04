@@ -1,86 +1,115 @@
 import sys
-from PyQt5.QtWidgets import (QWidget, QLabel, QLineEdit, QTextEdit, QGridLayout, QApplication, QPushButton, QComboBox)
-import graph as g
+from PyQt5.QtWidgets import QGridLayout, QLabel, QDialog, QComboBox, QApplication, QPushButton, QLineEdit, QTextEdit
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
+import matplotlib.pyplot as plt
+import functions as f
 
 
-class Example(QWidget):
+def computeGraphs(x, k, b, s):
+    if s == 1:
+        return f.linFunction(x, k, b)
 
-    def __init__(self):
-        super().__init__()
+    if s == 2:
+        return f.sinFunction(x)
 
-        self.initUI()
+    if s == 3:
+        return f.logFunction(x)
 
-    def initUI(self):
+    if s == 4:
+        return f.randFunction()
 
-        array = QLabel('Array')
-        karg = QLabel('K')
-        barg = QLabel('B')
-        console = QLabel("Message")
-        functionType = QLabel("Function")
 
-        self.arrayEdit = QLineEdit(self)
-        self.kargEdit = QLineEdit(self)
-        self.bargEdit = QLineEdit(self)
-        self.selectFunction = QComboBox(self)
+class Widget(QDialog):
 
-        self.selectFunction.addItem("Linear")
-        self.selectFunction.addItem("Sinus")
-        self.selectFunction.addItem("Log")
-        self.selectFunction.addItem("Random")
+    def __init__(self, parent=None):
+        super(Widget, self).__init__(parent)
 
-        self.consoleEdit = QTextEdit(self)
-        self.consoleEdit.setDisabled(True)
+        self.figure = plt.figure()
 
-        okButton = QPushButton("OK", self)
-        okButton.clicked.connect(self.buttonClicked)
+        self.canvas = FigureCanvas(self.figure)
+        self.toolbar = NavigationToolbar(self.canvas, self)
+
+        self.arrayText = QLabel("Array")
+        self.fArg = QLabel("K")
+        self.sArg = QLabel("B")
+        self.consoleMessage = QLabel("Message")
+        self.functionType = QLabel("Function")
+
+        self.array = QLineEdit(self)
+
+        self.firstArgument = QLineEdit(self)
+        self.secondArgument = QLineEdit(self)
+
+        self.comboBox = QComboBox(self)
+
+        self.console = QTextEdit(self)
+        self.console.setMaximumHeight(40)
+        self.console.setDisabled(True)
+
+        self.comboBox.addItem("Linear")
+        self.comboBox.addItem("Sinus")
+        self.comboBox.addItem("Log")
+        self.comboBox.addItem("Random")
+
+        self.button = QPushButton('Plot')
+        self.button.clicked.connect(self.plot)
 
         grid = QGridLayout()
-        grid.setSpacing(5)
 
-        grid.addWidget(okButton, 1, 3)
-        grid.addWidget(functionType, 1, 0)
-        grid.addWidget(self.selectFunction, 1, 1)
+        grid.addWidget(self.toolbar)
+        grid.addWidget(self.canvas)
 
-        grid.addWidget(array, 2, 0)
-        grid.addWidget(self.arrayEdit, 2, 1)
+        grid.addWidget(self.functionType)
+        grid.addWidget(self.comboBox)
 
-        grid.addWidget(karg, 3, 0)
-        grid.addWidget(self.kargEdit, 3, 1)
+        grid.addWidget(self.arrayText)
+        grid.addWidget(self.array)
 
-        grid.addWidget(barg, 4, 0)
-        grid.addWidget(self.bargEdit, 4, 1)
+        grid.addWidget(self.fArg)
+        grid.addWidget(self.firstArgument)
 
-        grid.addWidget(console, 5, 0)
-        grid.addWidget(self.consoleEdit, 5, 1)
+        grid.addWidget(self.sArg)
+        grid.addWidget(self.secondArgument)
+
+        grid.addWidget(self.consoleMessage)
+        grid.addWidget(self.console)
+
+        grid.addWidget(self.button)
+
 
         self.setLayout(grid)
-        self.setGeometry(1080, 300, 400, 100)
-        self.setWindowTitle('Graph')
-        self.show()
 
-    def buttonClicked(self):
+    def plot(self):
 
-        sender = self.sender()
-        typeFunc = self.selectFunction.currentIndex()
-        self.consoleEdit.setText(" ")
+        typeFunc = self.comboBox.currentIndex()
+        self.console.setText("")
         array = [0, 0]
         k = 0
         b = 0
 
         try:
 
-            array = list(map(int, self.arrayEdit.text().split()))
-            k = int(self.kargEdit.text())
-            b = int(self.bargEdit.text())
+            array = list(map(int, self.array.text().split()))
+            k = int(self.firstArgument.text())
+            b = int(self.secondArgument.text())
         except(TypeError, ValueError):
 
             if typeFunc == 0 or typeFunc == 1 or typeFunc == 2:
-                self.consoleEdit.setText("Please, enter correct data")
+                self.console.setText("Please, enter correct data")
 
-        g.show(typeFunc + 1, (array), k, b)
+        self.figure.clear()
 
+        ax = self.figure.add_subplot(111)
+
+        ax.plot(computeGraphs(array, k, b, typeFunc + 1), '*-')
+
+        self.canvas.draw()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = Example()
+
+    main = Widget()
+    main.show()
+
     sys.exit(app.exec_())

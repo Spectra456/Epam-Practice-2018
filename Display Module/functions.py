@@ -38,15 +38,3 @@ def randFunction():
     return randFunction
 
 
-def computeGraphs(x, k, b, s):
-    if s == 1:
-        return linFunction(x, k, b)
-
-    if s == 2:
-        return sinFunction(x)
-
-    if s == 3:
-        return logFunction(x)
-
-    if s == 4:
-        return randFunction()
