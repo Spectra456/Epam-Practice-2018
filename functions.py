@@ -15,7 +15,7 @@ def sinFunction(x):
     sinFunction = np.empty(len(x))
 
     for i in range(sinFunction.size):
-        sinFunction[i] = math.sin(x[i]);
+        sinFunction[i] = math.sin(x[i])
 
     return (sinFunction)
 
@@ -26,14 +26,14 @@ def logFunction(x):
     for i in range(logFunction.size):
         logFunction[i] = math.log(x[i], 2)
 
-    return (logFunction)
+    return logFunction
 
 
 def randFunction():
     randFunction = np.empty(random.randint(5, 100))
 
     for i in range(randFunction.size):
-        randFunction[i] = random.random();
+        randFunction[i] = random.random()
 
     return randFunction
 
