@@ -2,9 +2,6 @@ import numpy as np
 import math
 import random
 
-c = 0
-d = 0
-
 def linFunction(x, k, b):
     linFunction = np.empty(len(x))
 

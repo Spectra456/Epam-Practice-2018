@@ -1,9 +1,6 @@
 import sys
-import time
-
+from PyQt5.QtWidgets import (QWidget, QLabel, QLineEdit, QTextEdit, QGridLayout, QApplication, QPushButton, QComboBox)
 import graph as g
-from PyQt5.QtWidgets import (QWidget, QLabel, QLineEdit,
-                             QTextEdit, QGridLayout, QApplication, QPushButton, QComboBox)
 
 
 class Example(QWidget):
