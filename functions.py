@@ -8,7 +8,7 @@ def linFunction(x, k, b):
     for i in range(linFunction.size):
         linFunction[i] = k * x[i] + b
 
-    return (linFunction)
+    return linFunction
 
 
 def sinFunction(x):
@@ -17,7 +17,7 @@ def sinFunction(x):
     for i in range(sinFunction.size):
         sinFunction[i] = math.sin(x[i])
 
-    return (sinFunction)
+    return sinFunction
 
 
 def logFunction(x):
@@ -40,13 +40,13 @@ def randFunction():
 
 def computeGraphs(x, k, b, s):
     if s == 1:
-        return (linFunction(x, k, b))
+        return linFunction(x, k, b)
 
     if s == 2:
-        return (sinFunction(x))
+        return sinFunction(x)
 
     if s == 3:
-        return (logFunction(x))
+        return logFunction(x)
 
     if s == 4:
-        return (randFunction())
+        return randFunction()
