@@ -9,7 +9,6 @@ def fops(filename):
 
         while num:
             array.append(struct.unpack(">f", num))
-            print(struct.unpack(">f", num))
             num = file.read(4)
             i = i + 1
 
