@@ -39,6 +39,7 @@ class Widget(QDialog):
         self.sArg = QLabel("B")
         self.consoleMessage = QLabel("Message")
         self.functionType = QLabel("Function")
+        self.selectedFile = QLabel("")
 
         self.array = QLineEdit(self)
 
@@ -83,6 +84,7 @@ class Widget(QDialog):
         grid.addWidget(self.consoleMessage)
         grid.addWidget(self.console)
 
+        grid.addWidget(self.selectedFile)
         grid.addWidget(self.button)
         grid.addWidget(self.selectButton)
 
@@ -129,6 +131,7 @@ class Widget(QDialog):
     def showDialog(self):
 
         self.filename = QFileDialog.getOpenFileName(self, 'Open file')[0]
+        self.selectedFile.setText(self.filename)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
