@@ -4,8 +4,8 @@ from PyQt5.QtWidgets import QGridLayout, QLabel, QDialog, QComboBox, QApplicatio
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 import matplotlib.pyplot as plt
-import functions as f
-import dataReader as r
+import Display.functions as f
+from Display import dataReader as r
 
 
 def computeGraphs(x, k, b, s, filename):
