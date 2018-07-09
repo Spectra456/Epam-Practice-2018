@@ -1,6 +1,7 @@
 import random
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageEnhance
 import math
+import numpy as np
 
 
 def properities(file):
@@ -55,13 +56,27 @@ def Gamma(file, factor):
 
 def Log(file):
     image, draw, width, height, pixel = properities(file)
+    array = np.asarray(image)
 
     for i in range(width):
         for j in range(height):
             a = pixel[i, j][0]
             b = pixel[i, j][1]
             c = pixel[i, j][2]
-            S = a + b + c
-            draw.point((i, j), (int(math.log(1 + a, 2)), int(math.log(1 + b, 2)), int(math.log(1 + c, 2))))
+            S = a * 0.2126 + b * 0.7152 + c * 0.0722
 
+            draw.point((i, j), (
+            int(255 * (math.log(2 + S, 100))), int(255 * (math.log(2 + S, 100))), int(255 * (math.log(2 + S, 100)))))
+
+    return image
+
+
+def Linear(file):
+    image = Image.open(file)
+    image = image.convert('L')
+    contr = ImageEnhance.Contrast(image)
+    image = contr.enhance(1.2)
+    bright = ImageEnhance.Brightness(image)
+    image = bright.enhance(1.7)
+    # im.show()
     return image
