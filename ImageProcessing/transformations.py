@@ -4,8 +4,8 @@ import math
 import numpy as np
 
 
-def properities(file):
-    image = Image.open(file)
+def properities(filename):
+    image = Image.open(filename)
     draw = ImageDraw.Draw(image)
     width = image.size[0]
     height = image.size[1]
@@ -66,7 +66,8 @@ def Log(file):
             S = a * 0.2126 + b * 0.7152 + c * 0.0722
 
             draw.point((i, j), (
-            int(255 * (math.log(2 + S, 100))), int(255 * (math.log(2 + S, 100))), int(255 * (math.log(2 + S, 100)))))
+                int(255 * (math.log(1 + S, 100))), int(255 * (math.log(1 + S, 100))),
+                int(255 * (math.log(1 + S, 100)))))
 
     return image
 
