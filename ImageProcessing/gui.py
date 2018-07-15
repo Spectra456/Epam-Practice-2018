@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QGridLayout, QLabel, QDialog, QComboBox, QApplicatio
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 import matplotlib.pyplot as plt
+import cv2
 
 import ImageProcessing.transformations as t
 import ImageProcessing.zoom as z
@@ -13,7 +14,7 @@ import ImageProcessing.histograms as h
 import ImageProcessing.operations as o
 
 
-def computeImage(s, filename, factor, type, array, filesnames):
+def computeImage(s, filename, factor, type, array):
 
     if s == 1:
         return t.Negative(filename)
@@ -40,7 +41,7 @@ def computeImage(s, filename, factor, type, array, filesnames):
         return o.averaging(filename)
 
     if s == 9:
-        return o.difference(filesnames[0], filesnames[1])
+        return o.difference(filename[0], filename[1])
 
 
 
@@ -49,7 +50,6 @@ class Widget(QDialog):
 
     def __init__(self, parent=None):
 
-        self.filesnames = ['', '']
         self.filename = ""
         self.type = 0
 
@@ -166,7 +166,6 @@ class Widget(QDialog):
             factor = 1
 
         filename = self.filename
-        filesnames = self.filesnames
 
         self.figure.clear()
         self.figure.subplots_adjust(top=1.0, bottom=0.0, left=0.0, right=1.0)
@@ -176,7 +175,7 @@ class Widget(QDialog):
 
         try:
 
-            ax.imshow(computeImage(typeFunc, filename, factor, typeZoom, array, filesnames), cmap="gray")
+            ax.imshow(computeImage(typeFunc, filename, factor, typeZoom, array), cmap="gray")
 
         except:
 
@@ -188,16 +187,21 @@ class Widget(QDialog):
 
         if self.type == 8:
 
-            self.filesnames = QFileDialog.getOpenFileNames(self, 'Open files')[0]
+            self.filename = QFileDialog.getOpenFileNames(self, 'Open files')[0]
+
 
         elif self.type == 7:
 
             self.filename = QFileDialog.getExistingDirectory(self, "Select Directory")
+            self.selectedFile.setText(self.filename)
+
         else:
 
             self.filename = QFileDialog.getOpenFileName(self, 'Open file')[0]
 
-        self.selectedFile.setText(self.filename)
+            self.selectedFile.setText(self.filename)
+
+
 
     def selectedFunction(self):
 
