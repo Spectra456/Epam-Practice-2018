@@ -47,6 +47,7 @@ class Widget(QDialog):
         self.secondArgument = QLineEdit(self)
 
         self.comboBox = QComboBox(self)
+        self.comboBox.activated.connect(self.selectedFunction)
 
         self.console = QTextEdit(self)
         self.console.setMaximumHeight(40)
@@ -132,6 +133,20 @@ class Widget(QDialog):
 
         self.filename = QFileDialog.getOpenFileName(self, 'Open file')[0]
         self.selectedFile.setText(self.filename)
+
+    def selectedFunction(self):
+
+        if self.comboBox.currentIndex() == 0:
+            self.fArg.setVisible(True)
+            self.firstArgument.setVisible(True)
+            self.sArg.setVisible(True)
+            self.secondArgument.setVisible(True)
+        else:
+            self.fArg.setVisible(False)
+            self.firstArgument.setVisible(False)
+            self.sArg.setVisible(False)
+            self.secondArgument.setVisible(False)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
