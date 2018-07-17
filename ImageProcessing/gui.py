@@ -13,14 +13,17 @@ import ImageProcessing.zoom as z
 import ImageProcessing.histograms as h
 import ImageProcessing.operations as o
 import ImageProcessing.blur as b
+import ImageProcessing.xcrReader as x
 
 
 def computeImage(s, filename, factor, type, array):
 
     if s == 1:
+
         return t.Negative(filename)
 
     if s == 2:
+
         return t.Gamma(filename, factor)
 
     if s == 3:
@@ -44,8 +47,12 @@ def computeImage(s, filename, factor, type, array):
     if s == 9:
 
         return o.difference(filename[0], filename[1])
+
     if s == 10:
         return b.blurAuto(filename, factor)
+
+    if s == 11:
+        return x.xcr_reader(filename, 1024, 1024, 2048, True)
 
 
 
@@ -108,6 +115,7 @@ class Widget(QDialog):
         self.comboBox.addItem("Average")
         self.comboBox.addItem("Difference")
         self.comboBox.addItem("Blur")
+        self.comboBox.addItem("Read from XCR")
 
         self.zoomChoose.addItem("Nearest neighbour interpolation")
         self.zoomChoose.addItem("Linear interpolation")
