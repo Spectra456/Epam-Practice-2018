@@ -10,6 +10,7 @@ from Display import dataReader as r
 
 def computeGraphs(x, k, b, s, filename):
     if s == 1:
+
         return f.linFunction(x, k, b)
 
     if s == 2:
@@ -20,8 +21,9 @@ def computeGraphs(x, k, b, s, filename):
 
     if s == 4:
         return f.randFunction()
+
     if s == 5:
-        return r.fops(filename)
+        return r.bin2float(filename, 1000)
 
 
 class Widget(QDialog):

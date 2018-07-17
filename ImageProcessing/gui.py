@@ -12,6 +12,7 @@ import ImageProcessing.transformations as t
 import ImageProcessing.zoom as z
 import ImageProcessing.histograms as h
 import ImageProcessing.operations as o
+import ImageProcessing.blur as b
 
 
 def computeImage(s, filename, factor, type, array):
@@ -41,7 +42,10 @@ def computeImage(s, filename, factor, type, array):
         return o.averaging(filename)
 
     if s == 9:
+
         return o.difference(filename[0], filename[1])
+    if s == 10:
+        return b.blurAuto(filename, factor)
 
 
 
@@ -66,10 +70,12 @@ class Widget(QDialog):
         self.coordinatesLabel = QLabel("Coordinates")
         self.selectedFile = QLabel("")
         self.factorLabel = QLabel("Factor")
+        self.maskLabel = QLabel("Mask size")
 
         self.coordinatesLabel.setVisible(False)
         self.factorLabel.setVisible(False)
         self.zoomType.setVisible(False)
+        self.maskLabel.setVisible(False)
 
         self.comboBox = QComboBox(self)
         self.comboBox.activated.connect(self.selectedFunction)
@@ -85,6 +91,9 @@ class Widget(QDialog):
         self.coordinates = QLineEdit(self)
         self.coordinates.setVisible(False)
 
+        self.maskSize = QLineEdit(self)
+        self.maskSize.setVisible(False)
+
         self.console = QTextEdit(self)
         self.console.setMaximumHeight(40)
         self.console.setDisabled(True)
@@ -98,6 +107,7 @@ class Widget(QDialog):
         self.comboBox.addItem("Adding mask")
         self.comboBox.addItem("Average")
         self.comboBox.addItem("Difference")
+        self.comboBox.addItem("Blur")
 
         self.zoomChoose.addItem("Nearest neighbour interpolation")
         self.zoomChoose.addItem("Linear interpolation")
@@ -233,6 +243,19 @@ class Widget(QDialog):
 
             self.coordinates.setVisible(False)
             self.coordinatesLabel.setVisible(False)
+
+        if self.comboBox.currentIndex() == 9:
+
+            self.factorLabel.setVisible(True)
+            self.factor.setVisible(True)
+            self.factorLabel.setText("Mask size")
+        else:
+
+            self.factorLabel.setVisible(False)
+            self.factor.setVisible(False)
+            self.factorLabel.setText("Factor")
+
+
 
 
 if __name__ == '__main__':

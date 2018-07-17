@@ -1,6 +1,7 @@
 from PIL import Image, ImageChops
 import os
 
+
 def averaging(dir):
     allfiles = os.listdir(dir)
 
