@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QGridLayout, QLabel, QDialog, QComboBox, QApplicatio
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 import matplotlib.pyplot as plt
-import cv2
+
 
 import ImageProcessing.transformations as t
 import ImageProcessing.zoom as z
@@ -14,6 +14,7 @@ import ImageProcessing.histograms as h
 import ImageProcessing.operations as o
 import ImageProcessing.blur as b
 import ImageProcessing.xcrReader as x
+import ImageProcessing.sobel as p
 
 
 def computeImage(s, filename, factor, type, array):
@@ -53,6 +54,9 @@ def computeImage(s, filename, factor, type, array):
 
     if s == 11:
         return x.xcr_reader(filename, 1024, 1024, 2048, True)
+
+    if s == 12:
+        return p.sobelOperator(filename)
 
 
 
@@ -116,6 +120,7 @@ class Widget(QDialog):
         self.comboBox.addItem("Difference")
         self.comboBox.addItem("Blur")
         self.comboBox.addItem("Read from XCR")
+        self.comboBox.addItem("Sobel operator")
 
         self.zoomChoose.addItem("Nearest neighbour interpolation")
         self.zoomChoose.addItem("Linear interpolation")
