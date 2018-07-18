@@ -6,6 +6,7 @@ from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as Navigatio
 import matplotlib.pyplot as plt
 import Display.functions as f
 from Display import dataReader as r
+import Display.FT_realization as ft
 
 
 def computeGraphs(x, k, b, s, filename):
@@ -24,7 +25,6 @@ def computeGraphs(x, k, b, s, filename):
 
     if s == 5:
         return r.bin2float(filename, 1000)
-
 
 class Widget(QDialog):
     filename = ""
@@ -60,6 +60,7 @@ class Widget(QDialog):
         self.comboBox.addItem("Log")
         self.comboBox.addItem("Random")
         self.comboBox.addItem("From file")
+        self.comboBox.addItem("Fourier transformation")
 
         self.button = QPushButton('Plot')
         self.button.clicked.connect(self.plot)
@@ -101,10 +102,8 @@ class Widget(QDialog):
         array = [0, 0]
         k = 0
         b = 0
-        filename = ""
 
-        if typeFunc == 4:
-            filename = self.filename
+        filename = self.filename
 
         try:
 
@@ -119,7 +118,9 @@ class Widget(QDialog):
 
             k = int(self.firstArgument.text())
             b = int(self.secondArgument.text())
+
         except(TypeError, ValueError):
+
             if typeFunc == 0:
                 self.console.setText("Please, enter correct arguments")
 
@@ -127,7 +128,16 @@ class Widget(QDialog):
 
         ax = self.figure.add_subplot(111)
 
-        ax.plot(computeGraphs(array, k, b, typeFunc + 1, filename), '*-')
+        if typeFunc == 5:
+
+            a, b = ft.fourier(r.bin2float(filename, 1000))
+            ax.plot(a, b)
+
+        else:
+
+            ax.plot(computeGraphs(array, k, b, typeFunc + 1, filename), '*-')
+
+
 
         self.canvas.draw()
 

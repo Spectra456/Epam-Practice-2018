@@ -3,6 +3,7 @@ import ImageProcessing.transformations as t
 import ImageProcessing.histograms as h
 import ImageProcessing.operations as o
 import ImageProcessing.blur as b
+import ImageProcessing.sobel as s
 
 import scipy
 
@@ -11,7 +12,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import PIL.Image as P
 
-FILE_NAME = "assets/example.png"
+
 
 # plt.imshow(t.Negative(FILE_NAME))
 # plt.imshow(t.Gamma(FILE_NAME, 1.2))
@@ -22,6 +23,9 @@ FILE_NAME = "assets/example.png"
 # plt.imshow(o.averaging("C:/Users/Spectra/PycharmProjects/Epam-Practice-2018/ImageProcessing/assets/rails"))
 # plt.imshow(o.difference('C:/Users/Spectra/PycharmProjects/Epam-Practice-2018/ImageProcessing/assets/scene00769.png','C:/Users/Spectra/PycharmProjects/Epam-Practice-2018/ImageProcessing/assets/scene00777.png'),cmap="gray")
 # plt.imshow(z.zoom(FILE_NAME,2,2))
-b = b.blurAuto(FILE_NAME, 3)
 
-P._show(b)
+
+# a = b.blurAuto(FILE_NAME, 3)
+a = s.sobelOperator("assets/brain.jpg")
+
+P._show(a)
