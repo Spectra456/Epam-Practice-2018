@@ -48,7 +48,6 @@ def Gamma(file, factor):
 
             draw.point((i, j), (S, S, S))
 
-
     return image
 
 
@@ -76,8 +75,8 @@ def Linear(file):
     image = Image.open(file)
     image = image.convert('L')
     contr = ImageEnhance.Contrast(image)
-    image = contr.enhance(1.2)
+    image = contr.enhance(2)
     bright = ImageEnhance.Brightness(image)
-    image = bright.enhance(1.7)
+    image = bright.enhance(2)
 
     return image

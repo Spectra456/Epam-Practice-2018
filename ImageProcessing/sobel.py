@@ -3,7 +3,7 @@ import math
 
 
 def init(filename):
-    img = Image.open(filename)
+    img = Image.open(filename).convert('')
     width = img.size[0]
     height = img.size[1]
 

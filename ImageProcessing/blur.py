@@ -1,5 +1,5 @@
 from PIL import Image, ImageChops
-
+import cv2
 def blurAuto(filename, size):
 
     defaultSize = 1
@@ -74,7 +74,7 @@ def init(filename, size):
     height = img.size[1]
 
     members = [(0, 0)] * size * size
-    newimg = Image.new("L", (width, height), "white")
+    newimg = Image.new("RGB", (width, height), "white")
 
     return height, img, members, newimg, width
 
@@ -90,3 +90,9 @@ def findBorder(defaultDiff, defaultSize, size):
         defaultDiff = defaultDiff + 1
 
     return border
+
+
+def gaussianBlur(filename, size):
+    img = cv2.imread(filename, 0)
+
+    return cv2.GaussianBlur(img, (size, size), 0)

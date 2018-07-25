@@ -59,8 +59,6 @@ def computeImage(s, filename, factor, type, array):
         return p.sobelOperator(filename)
 
 
-
-
 class Widget(QDialog):
 
     def __init__(self, parent=None):
@@ -264,8 +262,6 @@ class Widget(QDialog):
             self.factorLabel.setText("Mask size")
         else:
 
-            self.factorLabel.setVisible(False)
-            self.factor.setVisible(False)
             self.factorLabel.setText("Factor")
 
 

@@ -1,7 +1,5 @@
 import struct
-import imageio
 import numpy as np
-from PIL import Image
 
 
 def xcr_reader(file_path: str, col_num: int, row_num: int, offset: int = 0, reversed: bool = False):

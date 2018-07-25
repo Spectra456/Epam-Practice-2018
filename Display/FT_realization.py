@@ -15,7 +15,7 @@ def fourier(array):
 
     return x_array, FT_res.frequencies, FT_res.borderF
 
-a, b, c = fourier(r.bin2float("php.dat", 1000))
-plt.plot(a, b)
-plt.xlim(0, c)
-plt.show()
+# a, b, c = fourier(r.bin2float("php.dat", 1000))
+# plt.plot(a, b)
+# plt.xlim(0, c)
+# plt.show()

@@ -6,7 +6,6 @@ def equalize(filename):
 
     img = cv2.imread(filename, 0)
     equ = cv2.equalizeHist(img)
-    equ = np.hstack((img, equ))
 
     return equ
 

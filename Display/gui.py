@@ -130,7 +130,8 @@ class Widget(QDialog):
 
         if typeFunc == 5:
 
-            a, b = ft.fourier(r.bin2float(filename, 1000))
+            a, b, c = ft.fourier(r.bin2float(filename, 1000))
+            ax.set_xlim(0, c)
             ax.plot(a, b)
 
         else:
